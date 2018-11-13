@@ -1,0 +1,34 @@
+{
+    "name": "acgn/center-sdk",
+    "description": "",
+    "license": "MIT",
+    "homepage": "https://acgn.io",
+    "support": {
+        "issues": "https://github.com/ericychu/acgn-center-sdk/issues",
+        "source": "https://github.com/ericychu/acgn-center-sdk"
+    },
+    "authors": [
+        {
+            "name": "Eric Zhu",
+            "email": "eric@zhu.email"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "ext-json": "*",
+        "ext-curl": "*",
+        "ext-openssl": "*",
+        "guzzlehttp/guzzle": "~6.0",
+        "nesbot/carbon": "~2.5",
+        "psr/http-message": "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Acgn\\Center\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}
