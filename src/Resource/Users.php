@@ -9,6 +9,7 @@ use Acgn\Center\Models;
  * @method VerificationsToken verifications()
  * @method UsersPassword password()
  * @method UsersPhone phone()
+ * @method UsersEmail email()
  */
 
 class Users extends Resource
