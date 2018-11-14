@@ -19,19 +19,21 @@ class Users extends Resource
      * @param string $verificationToken
      * @param string $username
      * @param string $password
+     * @param string|null $email
      * @return Models\User
      * @throws \Acgn\Center\Exceptions\InvalidParamsResponseException
      * @throws \Acgn\Center\Exceptions\HttpTransferException
      * @throws \Acgn\Center\Exceptions\ParseResponseException
      * @throws \Acgn\Center\Exceptions\ResponseException
      */
-    public function create(string $verificationToken, string $username, string $password)
+    public function create(string $verificationToken, string $username, string $password, ?string $email = null)
     {
         $request = new Request(Request::POST, $this->getPath(), false);
         $request->setBody([
             'verification_token' => $verificationToken,
             'username' => $username,
             'password' => $password,
+            'email' => $email,
         ]);
 
         return $this->client->sendRequest($request, Models\User::class);
