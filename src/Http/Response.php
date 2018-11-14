@@ -88,7 +88,7 @@ class Response
             if (! property_exists($this->body, 'errors')) {
                 throw new ParseResponseException('No \'errors\' found in response body.');
             }
-            throw new InvalidParamsResponseException($message, $statusCode, $this->body->errors);
+            throw new InvalidParamsResponseException($message, $statusCode, (array)$this->body->errors);
         }
 
         throw new ResponseException($message, $statusCode);
