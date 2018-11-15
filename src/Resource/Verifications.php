@@ -17,16 +17,15 @@ class Verifications extends Resource
      * @param int $countryCode
      * @param string $phoneNumber
      * @param string $scene
-     * @param bool $requireAuthorization
      * @return Models\Verification
      * @throws \Acgn\Center\Exceptions\InvalidParamsResponseException
      * @throws \Acgn\Center\Exceptions\HttpTransferException
      * @throws \Acgn\Center\Exceptions\ParseResponseException
      * @throws \Acgn\Center\Exceptions\ResponseException
      */
-    public function create(string $captchaResponse, int $countryCode, string $phoneNumber, string $scene, bool $requireAuthorization = false)
+    public function create(string $captchaResponse, int $countryCode, string $phoneNumber, string $scene)
     {
-        $request = new Request(Request::POST, $this->getPath(), $requireAuthorization);
+        $request = new Request(Request::POST, $this->getPath(), $scene == 'confirm_user_phone');
         $request->setBody([
             'captcha_response' => $captchaResponse,
             'country_code' => $countryCode,
