@@ -8,7 +8,7 @@ use Acgn\Center\Resource;
 /**
  * @method Resource\Verifications verifications(?string $id = null)
  * @method Resource\Users users(?string $id = null)
- * @method Resource\Users forgot()
+ * @method Resource\Forgot forgot()
  * @method Resource\Auth auth()
  */
 class Resources
