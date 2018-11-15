@@ -3,6 +3,7 @@
 namespace Acgn\Center\Resource;
 
 use Acgn\Center\Http\Request;
+use Acgn\Center\Models;
 
 /**
  */
@@ -27,6 +28,6 @@ class Forgot extends Resource
             'password' => $password,
         ]);
 
-        return $this->client->sendRequest($request);
+        return $this->client->sendRequest($request, Models\User::class);
     }
 }
