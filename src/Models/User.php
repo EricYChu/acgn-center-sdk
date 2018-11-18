@@ -27,6 +27,6 @@ class User extends Model
     public function __construct(\stdClass $input)
     {
         parent::__construct($input);
-        $this->phone = $this-$this->country_code.$this->phone_number;
+        $this->phone = $this->country_code.$this->phone_number;
     }
 }
