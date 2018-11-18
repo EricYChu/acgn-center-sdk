@@ -85,10 +85,6 @@ class Notification
             return;
         }
 
-        if ($this->debug and ($topicName != self::TOPIC_USER_CREATION_TESTING or $topicName != self::TOPIC_USER_UPDATING_TESTING)) {
-            return;
-        }
-
         if ($this->debug) {
             if ($topicName == self::TOPIC_USER_CREATION_TESTING) {
                 $listeners = $this->userCreationListeners;
@@ -139,23 +135,21 @@ class Notification
         $canonicalizedResource = $_SERVER['REQUEST_URI'];
 
         $contentMd5 = '';
-        if (array_key_exists('Content-MD5', $headers)) {
-            $contentMd5 = $headers['Content-MD5'];
-        } else if (array_key_exists('Content-md5', $headers)) {
-            $contentMd5 = $headers['Content-md5'];
+        if (array_key_exists('content-md5', $headers)) {
+            $contentMd5 = $headers['content-md5'];
         }
 
         $contentType = '';
-        if (array_key_exists('Content-Type', $headers)) {
-            $contentType = $headers['Content-Type'];
+        if (array_key_exists('content-type', $headers)) {
+            $contentType = $headers['content-type'];
         }
-        $date = $headers['Date'];
+        $date = $headers['date'];
 
         $stringToSign = strtoupper($method) . "\n" . $contentMd5 . "\n" . $contentType . "\n" . $date . "\n" . $canonicalizedMNSHeaders . "\n" . $canonicalizedResource;
 
         $publicKeyURL = base64_decode($headers['x-mns-signing-cert-url']);
         $publicKey = $this->getByUrl($publicKeyURL);
-        $signature = $headers['Authorization'];
+        $signature = $headers['authorization'];
 
         $pass = $this->verify($stringToSign, $signature, $publicKey);
         if (! $pass) {
@@ -166,7 +160,7 @@ class Notification
         // 2. now parse the content
         $content = file_get_contents('php://input');
 
-        if (! empty($contentMd5) && $contentMd5 != base64_encode(md5($content))) {
+        if (! empty($contentMd5) and $contentMd5 != base64_encode(md5($content))) {
             http_response_code(401);
             return;
         }
@@ -218,8 +212,9 @@ class Notification
     {
         $headers = [];
         foreach ($_SERVER as $name => $value) {
-            if (substr($name, 0, 5) == 'HTTP_') {
-                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+            $name = strtolower($name);
+            if (substr($name, 0, 5) == 'http_') {
+                $headers[str_replace('_', '-', substr($name, 5))] = $value;
             }
         }
         return $headers;

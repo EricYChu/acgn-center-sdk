@@ -11,6 +11,7 @@ use Carbon\Carbon;
  * @property string $phone_number
  * @property string $phone
  * @property string $email
+ * @property int $version
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property bool $can_update
@@ -22,4 +23,10 @@ class User extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function __construct(\stdClass $input)
+    {
+        parent::__construct($input);
+        $this->phone = $this-$this->country_code.$this->phone_number;
+    }
 }
