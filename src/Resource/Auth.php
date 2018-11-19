@@ -7,6 +7,8 @@ use Acgn\Center\Models;
 
 /**
  * @method AuthRenewal renewal()
+ * @method AuthIntermediates intermediates()
+ * @method AuthExchanges exchanges()
  */
 class Auth extends Resource
 {
